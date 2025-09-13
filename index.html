@@ -833,9 +833,8 @@ function pickAndShow(list){
 }
 
 async function init(){
-  // try external then fallback
-  const external = await loadExternalList();
-  const list = external || FALLBACK_AFFIRMATIONS;
+  // no more external fetch, always use inline affirmations
+  const list = FALLBACK_AFFIRMATIONS;
   window._affirm_list = list; // expose for console
   pickAndShow(list);
 }
