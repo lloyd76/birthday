@@ -140,14 +140,14 @@
   </div>
 
 <script>
-/
+/*
  Behavior:
  - Try fetch '/affirmations.txt' (newline separated). If present, use it.
  - Otherwise use the embedded fallback list below.
  - Use localStorage key "affirm_idx_v1" to deterministically cycle through items:
     - index = (storedIndex % length); show that item; then increment and store (so next refresh shows next)
  - The "Next" button will advance without refresh (increment index and re-render).
-/
+*/
 
 // ---------- fallback list (30 samples). Replace or add your own here if you want inline.
 const FALLBACK_AFFIRMATIONS = [
