@@ -255,25 +255,6 @@
     z-index: 10;
   }
 
-  .progress {
-    height: 4px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-    margin-top: 16px;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .progress-bar {
-    position: absolute;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 2px;
-    transition: width 0.3s ease;
-  }
-
   @media (max-width: 640px) {
     body {
       padding: 12px;
@@ -343,8 +324,8 @@
 
     <div class="affirmation-container">
       <div id="affirmation" class="affirmation">Loading affirmation…</div>
-      <div class="progress">
-        <div id="progressBar" class="progress-bar"></div>
+      <div>
+        <div>
       </div>
     </div>
 
@@ -372,7 +353,6 @@
   <div id="toast" class="toast"></div>
 
 <script>
-
 const FALLBACK_AFFIRMATIONS = [
   "Dede, you are the melody that makes my heart dance.",
   "Every sunrise reminds me of your smile, Charlene.",
@@ -402,7 +382,7 @@ const FALLBACK_AFFIRMATIONS = [
   "I treasure your heart and the way you love so freely.",
   "Your courage when things get tough leaves me in awe.",
   "You deserve every single dream you have.",
-  "Thank you for being you, perfectly, wonderfully you.",
+  "Thank you for being you — perfectly, wonderfully you.",
   "Your smile can light up whole rooms and days.",
   "Dede, I admire your courage and grace.",
   "You are my dream come true, Charlene.",
@@ -445,10 +425,10 @@ const FALLBACK_AFFIRMATIONS = [
   "There's no one else I'd rather share life's adventures with.",
   "You are the calm to my chaos and the spark to my joy.",
   "Your love is a home I never want to leave.",
-  "You make the world a softer, sweeter place."
+  "You make the world a softer, sweeter place.", // Added missing comma here
   "Dede, I adore everything about you.",
   "Charlene, my heart races for you.",
-   "Dede, if loving you is madness, I never want to be sane.",
+  "Dede, if loving you is madness, I never want to be sane.",
   "Charlene, I want to drown in your love and come up breathless.",
   "Dede, you’re both my calm and my chaos.",
   "Charlene, your body is art, and I’m your biggest admirer.",
@@ -617,7 +597,6 @@ const FALLBACK_AFFIRMATIONS = [
   "Dede, I’m blessed beyond measure by you.",
   "Charlene, you are my every heartbeat.",
   "Dede, your love carries me always.",
-    "Charlene, you’re the reason I blush at random moments.",
   "Dede, I imagine your laughter as I hold you in bed.",
   "Charlene, you fuel my mind and my desires.",
   "Dede, your love makes me restless in the best way.",
@@ -670,7 +649,7 @@ const FALLBACK_AFFIRMATIONS = [
   "Charlene, I want to press you against me and never let go.",
   "Dede, you’re the fantasy that fuels my passion.",
   "Charlene, I crave your love like air.",
-  "Dede, distance can’t stop me from desiring you.",
+  "Dede, distance can’t stop me from desering you.",
   "Charlene, you’re the flame that burns in me.",
   "Dede, I want to whisper how much I need you in your ear.",
   "Charlene, your love makes my body tremble.",
@@ -687,7 +666,7 @@ const FALLBACK_AFFIRMATIONS = [
   "Dede, you’re my dream that came true.",
   "Charlene, you’re my forever happiness.",
   "Dede, you are my heart’s keeper.",
-   "Dede, distance only makes me crave you more.",
+  "Dede, distance only makes me crave you more.",
   "Charlene, I dream of the day I can hold you tight again.",
   "Dede, I imagine kissing you goodnight every evening.",
   "Charlene, your absence makes my heart ache in the sweetest way.",
@@ -753,7 +732,7 @@ const FALLBACK_AFFIRMATIONS = [
   "Dede, you’re my eternal sunshine.",
   "Charlene, you’re my guiding love always.",
   "Dede, your love is my miracle.",
-  "Charlene, you’re my perfect blessing."
+  "Charlene, you’re my perfect blessing.",
   "Charlene, you make my nights sleepless and sweet.",
   "Dede, your love is my sweetest torment.",
   "Charlene, I imagine your hands pulling me closer.",
@@ -770,223 +749,75 @@ const FALLBACK_AFFIRMATIONS = [
   "Dede, I want to love you without end or limits.",
   "Charlene, your love makes me ache in passion.",
   "Dede, I miss the taste of you every day.",
-  "Charlene, you’re my eternal craving.",
+  "Charlene, you’re my eternal craving."
 ];
 
-// ---------- utilities & core logic ----------
 const AFFIRMATION_ELEMENT = document.getElementById('affirmation');
 const COPY_BTN = document.getElementById('copyBtn');
 const SHARE_BTN = document.getElementById('shareBtn');
 const NEXT_BTN = document.getElementById('nextBtn');
-const PROGRESS_BAR = document.getElementById('progressBar');
 const TOAST = document.getElementById('toast');
 
 const STORAGE_KEY = 'affirm_idx_v1';
 
-function showToast(message, isSuccess = false) {
-  TOAST.textContent = message;
-  TOAST.className = isSuccess ? 'toast success' : 'toast';
-  TOAST.classList.add('visible');
-  
-  setTimeout(() => {
-    TOAST.classList.remove('visible');
-  }, 3000);
-}
-
-// fetch external file; returns array or null
-async function loadExternalList(){
-  try{
-    const resp = await fetch('/affirmations.txt', {cache: "no-store"});
-    if(!resp.ok) throw new Error('no file');
-    const text = await resp.text();
-    // split lines, remove empties, trim
-    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-    return lines.length ? lines : null;
-  }catch(e){
-    return null;
-  }
-}
-
 function getStoredIndex(){
   const raw = localStorage.getItem(STORAGE_KEY);
-  const n = parseInt(raw,10);
+  const n = parseInt(raw, 10);
   return Number.isFinite(n) ? n : 0;
 }
 function setStoredIndex(n){ localStorage.setItem(STORAGE_KEY, String(n)); }
 
 function pickAndShow(list){
-  if(!list || !list.length) return;
   let idx = getStoredIndex();
   idx = idx % list.length;
   const item = list[idx];
-  
-  // Update progress bar
-  PROGRESS_BAR.style.width = `${((idx + 1) / list.length) * 100}%`;
-  
   AFFIRMATION_ELEMENT.textContent = item;
-  // small accessibility announcement
-  AFFIRMATION_ELEMENT.setAttribute('aria-atomic','true');
-  // increment for next time
+  PROGRESS_BAR.style.width = `${((idx+1) / list.length) * 100}%`;
   setStoredIndex(idx + 1);
-  // confetti
-  fireConfetti();
 }
 
-async function init(){
-  // no more external fetch, always use inline affirmations
-  const list = FALLBACK_AFFIRMATIONS;
-  window._affirm_list = list; // expose for console
-  pickAndShow(list);
-}
-
-// Next/advance without refresh
 function showNext(){
-  const list = window._affirm_list || FALLBACK_AFFIRMATIONS;
-  // advance index immediately then show
+  const list = FALLBACK_AFFIRMATIONS;
   let idx = getStoredIndex();
-  idx = idx % list.length;
-  // show current (since stored index currently points to next to display on refresh),
-  // but to emulate "next" button let's show the next item (increment first)
   const nextIdx = (idx + 1) % list.length;
-  setStoredIndex(nextIdx + 1); // store one beyond so refresh continues after this
-  
-  // Update progress bar
-  PROGRESS_BAR.style.width = `${((nextIdx + 1) / list.length) * 100}%`;
-  
+  setStoredIndex(nextIdx + 1);
   AFFIRMATION_ELEMENT.textContent = list[nextIdx];
-  fireConfetti();
 }
 
-// copy button
-COPY_BTN.addEventListener('click', async ()=>{
-  const txt = AFFIRMATION_ELEMENT.textContent || '';
-  try{
-    await navigator.clipboard.writeText(txt);
-    showToast('Copied to clipboard!', true);
-  }catch(e){
-    showToast('Failed to copy to clipboard');
+COPY_BTN.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(AFFIRMATION_ELEMENT.textContent);
+    showToast("Copied to clipboard!", true);
+  } catch(e) {
+    showToast("Copy failed.");
   }
 });
 
-// share if available
-SHARE_BTN.addEventListener('click', async ()=>{
-  const txt = AFFIRMATION_ELEMENT.textContent || '';
+SHARE_BTN.addEventListener('click', async () => {
+  const txt = AFFIRMATION_ELEMENT.textContent;
   if(navigator.share){
-    try{
-      await navigator.share({title:'Birthday Affirmation', text: txt, url: location.href});
-    }catch(e){}
+    try { await navigator.share({ text: txt }); }
+    catch(e){}
   } else {
-    // fallback: copy to clipboard and alert
-    try{
-      await navigator.clipboard.writeText(txt + '\n\n' + location.href);
-      showToast('Affirmation copied. Paste it to share!', true);
-    }catch(e){
-      showToast('Sharing not supported. Copy manually.');
+    try {
+      await navigator.clipboard.writeText(txt);
+      showToast("Affirmation copied! Paste to share.", true);
+    } catch(e) {
+      showToast("Sharing not supported.");
     }
   }
 });
 
 NEXT_BTN.addEventListener('click', showNext);
 
-// ---------- improved confetti implementation ----------
-function fireConfetti(){
-  const canvas = document.getElementById('confetti');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const DPR = window.devicePixelRatio || 1;
-  
-  function resize(){
-    canvas.width = canvas.clientWidth * DPR;
-    canvas.height = canvas.clientHeight * DPR;
-    ctx.scale(DPR, DPR);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const pieces = [];
-  const colors = ['#ff6b9a','#ffd166','#8ecae6','#7c3aed','#06d6a0', '#ff9e64'];
-  const shapes = ['circle', 'rect', 'heart'];
-  
-  for(let i = 0; i < 100; i++){
-    const size = 6 + Math.random() * 10;
-    pieces.push({
-      x: Math.random() * canvas.clientWidth,
-      y: -Math.random() * 200,
-      size: size,
-      vx: (Math.random() - 0.5) * 4,
-      vy: 2 + Math.random() * 5,
-      r: (Math.random() * 360),
-      vr: (Math.random() - 0.5) * 10,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: Math.random() * Math.PI,
-      shape: shapes[Math.floor(Math.random() * shapes.length)],
-      opacity: 0.8 + Math.random() * 0.2
-    });
-  }
-
-  let t = 0;
-  function frame(){
-    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-    
-    for(const p of pieces){
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.05; // gravity
-      p.r += p.vr * 0.01;
-      p.tilt += 0.08;
-      
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(Math.sin(p.tilt) * 0.4);
-      ctx.globalAlpha = p.opacity;
-      ctx.fillStyle = p.color;
-      
-      if(p.shape === 'circle') {
-        ctx.beginPath();
-        ctx.arc(0, 0, p.size/2, 0, Math.PI * 2);
-        ctx.fill();
-      } else if(p.shape === 'heart') {
-        drawHeart(ctx, 0, 0, p.size);
-      } else {
-        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-      }
-      
-      ctx.restore();
-    }
-    t++;
-    if(t < 250) {
-      requestAnimationFrame(frame);
-    }
-  }
-  requestAnimationFrame(frame);
-}
-
-function drawHeart(ctx, x, y, size) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(size/12, size/12);
-  ctx.beginPath();
-  let topCurveHeight = size * 0.3;
-  ctx.moveTo(0, 0);
-  ctx.bezierCurveTo(5, -5, 5, -10, 0, -10);
-  ctx.bezierCurveTo(-12, -10, -12, 5, 0, 10);
-  ctx.bezierCurveTo(12, 5, 12, -10, 0, -10);
-  ctx.bezierCurveTo(-5, -10, -5, -5, 0, 0);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
+function showToast(message, isSuccess=false){
+  TOAST.textContent = message;
+  TOAST.className = isSuccess ? 'toast success visible' : 'toast visible';
+  setTimeout(() => TOAST.classList.remove('visible'), 2500);
 }
 
 // kick it off
-init();
-
-// Add keyboard navigation
-document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' || e.code === 'ArrowRight') {
-    e.preventDefault();
-    showNext();
-  }
-});
+pickAndShow(FALLBACK_AFFIRMATIONS);
 </script>
 </body>
 </html>
