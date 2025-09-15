@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ten Thousand Affirmations — Happy Birthday</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --bg1: #0f172a;
+    --bg2: #0b1220;
+    --accent: #ff6b9a;
+    --accent2: #7c3aed;
+    --muted: rgba(255,255,255,0.75);
+    --card-bg: rgba(15, 23, 42, 0.8);
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --success: #06d6a0;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #fff;
+  }
+  
+  body {
+    background: 
+      radial-gradient(1200px 600px at 10% 10%, rgba(255, 107, 154, 0.15), transparent 25%),
+      radial-gradient(1000px 500px at 90% 90%, rgba(79, 70, 229, 0.1), transparent 25%),
+      linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255, 107, 154, 0.07) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.07) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .card {
+    width: min(800px, 100%);
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: clamp(20px, 4vw, 40px);
+    box-shadow: 
+      0 25px 50px -12px rgba(2, 6, 23, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, 
+      rgba(255, 107, 154, 0.1) 0%, 
+      rgba(124, 58, 237, 0.1) 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 21px;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    flex-shrink: 0;
+  }
+  
+  .header-text h1 {
+    font-size: clamp(18px, 2.5vw, 22px);
+    margin: 0 0 4px 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #fff, rgba(255,255,255,0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .header-text p.lead {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(12px, 1.5vw, 14px);
+    line-height: 1.5;
+  }
+
+  .affirmation-container {
+    position: relative;
+    margin: 32px 0;
+  }
+
+  .affirmation {
+    font-size: clamp(14px, 2vw, 22px);
+    line-height: 1.4;
+    font-weight: 400;
+    text-align: center;
+    padding: clamp(20px, 4vw, 32px);
+    border-radius: 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+      inset 0 2px 4px rgba(255, 255, 255, 0.03),
+      inset 0 -6px 24px rgba(2, 6, 23, 0.2);
+    transform-origin: center;
+    animation: fadeIn 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .affirmation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, 
+      rgba(255, 107, 154, 0.05) 0%, 
+      rgba(124, 58, 237, 0.05) 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  @keyframes fadeIn {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.98);
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    outline: none;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: white;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+  }
+  
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  
+  .note {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .note code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  footer {
+    margin-top: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #confetti {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  @media (max-width: 640px) {
+            body {
+                padding: 1;
+                display: block;
+            }
+            
+            .card {
+                min-height: 100vh;
+                border-radius: 40;
+                padding: 15px;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .controls {
+                flex-direction: row;
+                width: 100%;
+            }
+            
+            button {
+                width: auto;
+                flex: 1;
+                min-width: 0;
+                padding: 12px 15px;
+            }
+            
+            .affirmation {
+                padding: 20px 15px;
+                margin: 10px 0;
+            }
+            
+            .header-text h1 {
+                font-size: 20px;
+            }
+            
+            .header-text p.lead {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .affirmation {
+                font-size: 18px;
+                padding: 15px 12px;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            z-index: 100;
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+    </style>
+</head>
+<body>
+  <div class="card" role="main" aria-live="polite">
+    <canvas id="confetti"></canvas>
+
+    <header>
+      <div class="logo">
+        <i class="fas fa-heart"></i>
+      </div>
+      <div class="header-text">
+        <h1>Happy Birthday — A Word For Every Refresh</h1>
+        <p class="lead">Each time you refresh this page, a new affirmation appears. Keep refreshing until you find the one that makes you smile the widest.</p>
+      </div>
+    </header>
+
+    <div class="affirmation-container">
+      <div id="affirmation" class="affirmation">Loading affirmation…</div>
+      <div>
+        <div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="copyBtn" class="btn-primary">
+        <i class="fas fa-copy"></i> Copy
+      </button>
+      <button id="shareBtn" class="btn-secondary">
+        <i class="fas fa-share-alt"></i> Share
+      </button>
+      <button id="nextBtn" class="btn-secondary" title="Show next without refresh">
+        <i class="fas fa-forward"></i> Next
+      </button>
+    </div>
+
+    <div class="note">
+      I just want you to know that I love you so much. You mean everything to me, and I’m grateful for you every single day.
+    </div>
+
+    <footer>
+      <div class="small">Made with love ❤️ — endless afirmations.</div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script>
+const FALLBACK_AFFIRMATIONS = [
+  "Dede, you are the melody that makes my heart dance.",
+  "Every sunrise reminds me of your smile, Charlene.",
+  "Dede, you turn ordinary days into miracles.",
+  "My love for you grows deeper with every heartbeat, Dede.",
+  "Charlene, your kindness lights up my world.",
+  "Dede, you are my safe place and my greatest adventure.",
+  "You make distance feel small because my heart is always with you, Dede.",
+  "Charlene, when I think of beauty, I think of you.",
+  "Dede, loving you is the best decision of my life.",
+  "You inspire me to be better every single day, Dede.",
+  "Charlene, your laughter is my favorite song.",
+  "Dede, I fall in love with you all over again every morning.",
+  "My world feels brighter with you in it, Dede.",
+  "Charlene, your love gives me strength.",
+  "You are loved more than you know, today and always.",
+  "Your laugh is my favorite sound in the world.",
+  "You are braver than you believe and stronger than you seem.",
+  "Every day with you is my new favorite day.",
+  "You make the ordinary feel like magic.",
+  "Your kindness changes people quietly but profoundly.",
+  "I admire the way you see the world and make it better.",
+  "You are beautiful, brilliant, and worthy of every good thing.",
+  "Your presence is my peace and my greatest gift.",
+  "You inspire me to be the best version of myself.",
+  "Being loved by you makes everything brighter.",
+  "I treasure your heart and the way you love so freely.",
+  "Your courage when things get tough leaves me in awe.",
+  "You deserve every single dream you have.",
+  "Thank you for being you — perfectly, wonderfully you.",
+  "Your smile can light up whole rooms and days.",
+  "Dede, I admire your courage and grace.",
+  "You are my dream come true, Charlene.",
+  "Dede, my heart is forever yours.",
+  "Every thought of you makes me smile, Dede.",
+  "Charlene, your love is my guiding light.",
+  "Dede, you make everything worthwhile.",
+  "With you, Charlene, every moment feels magical.",
+  "Dede, your soul is the most beautiful thing I’ve ever known.",
+  "I cherish every memory with you, Charlene.",
+  "Dede, you are the poetry in my life.",
+  "Charlene, being yours is my greatest blessing.",
+  "Dede, you make love feel effortless.",
+  "My heart belongs to you, Charlene, always.",
+  "Dede, your smile is brighter than any star.",
+  "Charlene, you make me believe in miracles.",
+  "Dede, I am proud to call you mine.",
+  "Charlene, your beauty burns through me like fire.",
+  "Dede, your love is my sweetest escape.",
+  "Charlene, you’re my forever desire.",
+  "Charlene, you are the queen of my heart.",
+  "Dede, your love is my favorite gift.",
+  "Every second with you feels like heaven, Charlene.",
+  "Dede, you make me a better man.",
+  "Charlene, my life is sweeter because of you.",
+  "Dede, your presence makes me whole.",
+  "You are my forever, Charlene.",
+  "Dede, even the stars envy your glow.",
+  "Charlene, your love is my anchor.",
+  "I love how you make even the small moments memorable.",
+  "You are my favorite person, today and every day.",
+  "You are creative, capable, and deserving of joy.",
+  "You do so much good — seen and unseen.",
+  "Your patience and warmth are a rare and beautiful thing.",
+  "I fall for you all over again, every single day.",
+  "You are enough, exactly as you are.",
+  "Your strength is gentle and real — it moves me.",
+  "You brighten lives just by being in them.",
+  "I trust you, and I believe in your dreams.",
+  "There's no one else I'd rather share life's adventures with.",
+  "You are the calm to my chaos and the spark to my joy.",
+  "Your love is a home I never want to leave.",
+  "You make the world a softer, sweeter place.", // Added missing comma here
+  "Dede, I adore everything about you.",
+  "Charlene, my heart races for you.",
+  "Dede, if loving you is madness, I never want to be sane.",
+  "Charlene, I want to drown in your love and come up breathless.",
+  "Dede, you’re both my calm and my chaos.",
+  "Charlene, your body is art, and I’m your biggest admirer.",
+  "Dede, your whispers are the soundtrack of my fantasies.",
+  "Charlene, I’d travel a thousand miles just to touch your lips.",
+  "Dede, your love is my sweetest addiction and my wildest high.",
+  "Charlene, your smile melts me, but your stare undoes me.",
+  "Dede, I want to love you slowly and passionately, forever.",
+  "Charlene, even your silence seduces me.",
+  "Dede, you are the answer to my prayers.",
+  "Charlene, your beauty shines inside and out.",
+  "Dede, your love completes me.",
+  "Charlene, you are my happiest thought.",
+  "Dede, you are irreplaceable.",
+  "Charlene, my world is brighter with you.",
+  "Dede, you’re my sunshine on cloudy days.",
+  "Charlene, I’m grateful for your love.",
+  "Dede, my love for you is endless.",
+  "Charlene, you make me smile effortlessly.",
+  "Dede, I treasure your heart.",
+  "Charlene, your touch heals me.",
+  "Dede, your voice soothes my soul.",
+  "Charlene, you are my heart’s song.",
+  "Dede, I can’t imagine life without you.",
+  "Charlene, your love is pure magic.",
+  "Dede, you inspire my every dream.",
+  "Charlene, my heart beats only for you.",
+  "Dede, you are the calm to my storms.",
+  "Charlene, I adore your spirit.",
+  "Dede, I’m grateful for your love daily.",
+  "Charlene, you’re my favorite forever.",
+  "Dede, you are my light in the dark.",
+  "Charlene, you are my greatest joy.",
+  "Dede, you’re the reason I smile.",
+  "Charlene, you are my soulmate.",
+  "Dede, I’m proud to love you.",
+  "Charlene, you’re my constant inspiration.",
+  "Dede, you make my world bloom.",
+  "Charlene, your love is my treasure.",
+  "Dede, I’ll love you endlessly.",
+  "Charlene, I admire your strength.",
+  "Dede, you are my heart’s delight.",
+  "Charlene, I’m happiest with you.",
+  "Dede, your love fills my soul.",
+  "Charlene, you are my peace.",
+  "Dede, I can’t stop loving you.",
+  "Charlene, you’re my miracle.",
+  "Dede, you’re my guiding star.",
+  "Charlene, I adore your smile.",
+  "Dede, you’re my everything.",
+  "Charlene, you are my forever love.",
+  "Dede, I cherish you always.",
+  "Charlene, you are my greatest gift.",
+  "Dede, I’m lost in your love.",
+  "Charlene, you’re my dream realized.",
+  "Dede, you’re my love story.",
+  "Charlene, my heart beats for you.",
+  "Dede, I’m devoted to you.",
+  "Charlene, you are my perfect match.",
+  "Dede, I’ll always choose you.",
+  "Charlene, I treasure your soul.",
+  "Dede, you’re my heart’s desire.",
+  "Charlene, your love is priceless.",
+  "Dede, you’re my safe haven.",
+  "Charlene, I adore your heart.",
+  "Dede, you complete my life.",
+  "Charlene, you’re my sunshine.",
+  "Dede, your love fuels me.",
+  "Charlene, I’m grateful for you daily.",
+  "Dede, you are my forever blessing.",
+  "Charlene, I can’t let you go.",
+  "Dede, I’ll love you for eternity.",
+  "Charlene, you are my happiness.",
+  "Dede, you’re my heart’s home.",
+  "Charlene, your beauty amazes me.",
+  "Dede, you are my soul’s joy.",
+  "Charlene, I adore your love.",
+  "Dede, your heart is pure gold.",
+  "Charlene, you make my dreams real.",
+  "Dede, you’re my true love.",
+  "Charlene, your love is my anchor.",
+  "Dede, I’m blessed to love you.",
+  "Charlene, you’re my heart’s strength.",
+  "Dede, your smile warms me.",
+  "Charlene, I love your spirit.",
+  "Dede, I’ll stand by you always.",
+  "Charlene, your touch comforts me.",
+  "Dede, I adore your essence.",
+  "Charlene, you’re my endless joy.",
+  "Dede, your love heals me.",
+  "Charlene, you are my dream come true.",
+  "Dede, I’m devoted to your happiness.",
+  "Charlene, you are my forever choice.",
+  "Dede, your beauty is timeless.",
+  "Charlene, your kindness inspires me.",
+  "Dede, you’re my eternal love.",
+  "Charlene, I cherish your presence.",
+  "Dede, your laughter is my favorite sound.",
+  "Charlene, you’re my sweetest blessing.",
+  "Dede, you’re my heart’s treasure.",
+  "Charlene, you are love itself.",
+  "Dede, I’m happiest with you by my side.",
+  "Charlene, your soul is divine.",
+  "Dede, I’ll never stop loving you.",
+  "Charlene, you are my guiding light.",
+  "Dede, your love makes me whole.",
+  "Charlene, you’re my reason to smile.",
+  "Dede, you’re my forever flame.",
+  "Charlene, I adore your soul deeply.",
+  "Dede, your love is eternal.",
+  "Charlene, you’re my perfect destiny.",
+  "Dede, I’ll always hold you close.",
+  "Charlene, you are my world.",
+  "Dede, I’m grateful for your existence.",
+  "Charlene, you’re my heart’s delight.",
+  "Dede, I cherish every moment with you.",
+  "Charlene, you make me feel alive.",
+  "Dede, your love lifts me higher.",
+  "Charlene, you are my truest blessing.",
+  "Dede, you’re the best part of my life.",
+  "Charlene, I’ll forever choose you.",
+  "Dede, you are my greatest treasure.",
+  "Charlene, I’m thankful for your love.",
+  "Dede, your soul captivates me.",
+  "Charlene, you’re my eternal flame.",
+  "Dede, I love you without end.",
+  "Charlene, you are my perfect love.",
+  "Dede, you’re my sweetest dream.",
+  "Charlene, you are my heart’s song.",
+  "Dede, I’ll hold you forever.",
+  "Charlene, your love defines me.",
+  "Dede, you’re my shining star.",
+  "Charlene, I adore you endlessly.",
+  "Dede, you’re my happiness.",
+  "Charlene, your love is my peace.",
+  "Dede, I’ll never let you go.",
+  "Charlene, you’re my only love.",
+  "Dede, you’re my destiny.",
+  "Charlene, I love you infinitely.",
+  "Dede, you are my eternal sunshine.",
+  "Charlene, you make my soul complete.",
+  "Dede, I’m devoted to your love.",
+  "Charlene, you’re my light forever.",
+  "Dede, you are my soulmate eternal.",
+  "Charlene, you make my life brighter.",
+  "Dede, your love is my strength.",
+  "Charlene, you’re my one and only.",
+  "Dede, I’m yours forever.",
+  "Charlene, you are my eternal joy.",
+  "Dede, you complete my soul.",
+  "Charlene, I’ll always love you deeply.",
+  "Dede, your love is all I need.",
+  "Charlene, you’re my sweetest gift.",
+  "Dede, you’re my joy everlasting.",
+  "Charlene, I adore your very being.",
+  "Dede, you’re my life’s miracle.",
+  "Charlene, you’re my true forever.",
+  "Dede, I’ll love you to infinity.",
+  "Charlene, you’re my heart’s passion.",
+  "Dede, your love is endless light.",
+  "Charlene, you’re my reason for everything.",
+  "Dede, you are my endless dream.",
+  "Charlene, I’ll treasure you forever.",
+  "Dede, your beauty leaves me breathless.",
+  "Charlene, your love is my home.",
+  "Dede, I’m blessed beyond measure by you.",
+  "Charlene, you are my every heartbeat.",
+  "Dede, your love carries me always.",
+  "Dede, I imagine your laughter as I hold you in bed.",
+  "Charlene, you fuel my mind and my desires.",
+  "Dede, your love makes me restless in the best way.",
+  "Charlene, I crave your warmth in the middle of the night.",
+  "Dede, I want you wrapped around me, always.",
+  "Charlene, I imagine your perfume lingering on me.",
+  "Dede, you’re the one I want to wake up sore and happy with.",
+  "Charlene, my hunger for you is endless.",
+  "Dede, I’m intoxicated by the thought of you.",
+  "Charlene, I dream of your lips whispering my name.",
+  "Dede, distance only sharpens my desire for you.",
+  "Charlene, you’re the flame that consumes me.",
+  "Dede, I miss tracing your curves with my fingertips.",
+  "Charlene, I want to love you slow and wild.",
+  "Dede, you make my nights unbearably long without you.",
+  "Charlene, you’re the fantasy I never want to end.",
+  "Dede, I ache for your body close to mine.",
+  "Charlene, your touch is my ultimate addiction.",
+  "Dede, I imagine your lips stealing my breath away.",
+  "Charlene, you’re the heat that warms my soul.",
+  "Dede, your absence only makes my passion burn hotter.",
+  "Charlene, I long to kiss you until the sunrise.",
+  "Dede, you’re the sweetest ache I carry.",
+  "Charlene, your love drives me deliciously insane.",
+  "Dede, I imagine your breath against my neck nightly.",
+  "Charlene, I miss the fire in your eyes when you look at me.",
+  "Dede, you make me restless with love and desire.",
+  "Charlene, I crave your skin against mine endlessly.",
+  "Dede, I want to make you blush every morning.",
+  "Charlene, I’m addicted to your kisses and curves.",
+  "Dede, you’re the reason I can’t sleep peacefully.",
+  "Charlene, I imagine us tangled together until dawn.",
+  "Dede, your love is the fire I never want to put out.",
+  "Charlene, I long to hold you until we forget the world.",
+  "Dede, your beauty drives me crazy.",
+  "Charlene, your absence is my sweetest torture.",
+  "Dede, your smile makes me want to bite my lip.",
+  "Charlene, I dream of loving you without restraint.",
+  "Dede, you’re the sin I’ll never confess to anyone else.",
+  "Charlene, your lips are my favorite obsession.",
+  "Dede, I miss the taste of your kisses daily.",
+  "Charlene, I want to drown in your love.",
+  "Dede, I want to explore you like an endless map.",
+  "Charlene, your absence keeps my imagination alive.",
+  "Dede, your love is my sweetest weakness.",
+  "Charlene, your curves are forever on my mind.",
+  "Dede, your laughter is the sexiest sound I know.",
+  "Charlene, I imagine you wrapped in my arms every night.",
+  "Dede, your eyes make me lose control.",
+  "Charlene, I want to press you against me and never let go.",
+  "Dede, you’re the fantasy that fuels my passion.",
+  "Charlene, I crave your love like air.",
+  "Dede, distance can’t stop me from desering you.",
+  "Charlene, you’re the flame that burns in me.",
+  "Dede, I want to whisper how much I need you in your ear.",
+  "Charlene, your love makes my body tremble.",
+  "Dede, you’re the fire in my blood.",
+  "Charlene, I want to get lost in your kisses.",
+  "Dede, I want to worship every inch of you.",
+  "Charlene, your absence is unbearable, your love is everything.",
+  "Dede, I miss you in every heartbeat and desire.",
+  "Charlene, I imagine holding your face as I kiss you deeply.",
+  "Dede, you make me ache with longing.",
+  "Charlene, you’re my sweetest eternity.",
+  "Dede, your soul shines bright in me.",
+  "Charlene, you’re my eternal treasure.",
+  "Dede, you’re my dream that came true.",
+  "Charlene, you’re my forever happiness.",
+  "Dede, you are my heart’s keeper.",
+  "Dede, distance only makes me crave you more.",
+  "Charlene, I dream of the day I can hold you tight again.",
+  "Dede, I imagine kissing you goodnight every evening.",
+  "Charlene, your absence makes my heart ache in the sweetest way.",
+  "Dede, when I close my eyes, I feel your lips on mine.",
+  "Charlene, even thousands of miles can’t weaken my desire for you.",
+  "Dede, I want to trace every inch of your skin with my hands.",
+  "Charlene, your body is the home I miss the most.",
+  "Dede, I replay our moments together like my favorite movie.",
+  "Charlene, I long for the warmth of your touch.",
+  "Dede, you set my heart and body on fire.",
+  "Charlene, I dream of waking up next to you every morning.",
+  "Dede, I love the way your voice makes me weak.",
+  "Charlene, I crave your kisses more than chocolate.",
+  "Dede, the thought of you keeps me up at night.",
+  "Charlene, your love makes me restless in the best way.",
+  "Dede, I can’t wait to press my lips against your neck.",
+  "Charlene, I want to whisper naughty secrets in your ear.",
+  "Dede, your absence only fuels my imagination about us.",
+  "Charlene, I want you in ways words can’t describe.",
+  "Dede, you’re my sweetest temptation.",
+  "Charlene, I imagine your soft skin against mine constantly.",
+  "Dede, you make me hunger for love, touch, and closeness.",
+  "Charlene, my fantasies begin and end with you.",
+  "Dede, I’d give anything to feel your body next to mine tonight.",
+  "Charlene, you are my midnight craving.",
+  "Dede, distance can’t stop me from loving you wildly.",
+  "Charlene, I want to hold your waist and pull you closer.",
+  "Dede, your smile is sexy and addictive.",
+  "Charlene, your love is the sweetest sin I’ll never quit.",
+  "Dede, I imagine the taste of your lips every day.",
+  "Charlene, I miss the fire in your touch.",
+  "Dede, you’re the fantasy that keeps me alive at night.",
+  "Charlene, I long to tangle myself in your hair.",
+  "Dede, you are my sweetest addiction.",
+  "Charlene, your absence makes me ache for your touch.",
+  "Dede, you make my heart race and my body burn.",
+  "Charlene, I dream of you pressed against me.",
+  "Dede, your voice alone turns me on.",
+  "Charlene, your photos make me imagine a thousand things.",
+  "Dede, I want to kiss every corner of your smile.",
+  "Charlene, my hands itch to explore you.",
+  "Dede, I can’t wait to whisper how much I want you.",
+  "Charlene, my heart is yours, my desire too.",
+  "Dede, you’re the one I want to wake up to sweaty and smiling.",
+  "Charlene, your body is my favorite memory and my biggest fantasy.",
+  "Dede, I want to kiss you until you forget the distance.",
+  "Charlene, your love makes me impatient for tomorrow.",
+  "Dede, you are my sweetest daydream and my wildest night.",
+  "Charlene, you’re the reason I blush at random moments.",
+  "Charlene, you’re my love without end.",
+  "Dede, I cherish your love forever.",
+  "Charlene, you’re my joy unending.",
+  "Dede, your love is my forever gift.",
+  "Charlene, you’re my eternal blessing.",
+  "Dede, I’ll never stop choosing you.",
+  "Charlene, you’re my world always.",
+  "Dede, you are my eternal flame.",
+  "Charlene, you’re my forever light.",
+  "Dede, I adore you endlessly, my love.",
+  "Charlene, you’re my life’s brightest star.",
+  "Dede, you’re my forever joy.",
+  "Charlene, you’re my sweetest forever.",
+  "Dede, you’re my eternal sunshine.",
+  "Charlene, you’re my guiding love always.",
+  "Dede, your love is my miracle.",
+  "Charlene, you’re my perfect blessing.",
+  "Charlene, you make my nights sleepless and sweet.",
+  "Dede, your love is my sweetest torment.",
+  "Charlene, I imagine your hands pulling me closer.",
+  "Dede, your kisses are my endless craving.",
+  "Charlene, your body is my paradise lost and found.",
+  "Dede, I want to hold you until the distance disappears.",
+  "Charlene, you’re the one I dream of in the most intimate ways.",
+  "Dede, you are my wildest temptation.",
+  "Charlene, I long for your breath on my skin.",
+  "Dede, you make me burn with desire every night.",
+  "Charlene, I can’t resist the thought of you.",
+  "Dede, your body is my secret obsession.",
+  "Charlene, you are the flame I’ll never put out.",
+  "Dede, I want to love you without end or limits.",
+  "Charlene, your love makes me ache in passion.",
+  "Dede, I miss the taste of you every day.",
+  "Charlene, you’re my eternal craving."
+];
+
+const AFFIRMATION_ELEMENT = document.getElementById('affirmation');
+const COPY_BTN = document.getElementById('copyBtn');
+const SHARE_BTN = document.getElementById('shareBtn');
+const NEXT_BTN = document.getElementById('nextBtn');
+const TOAST = document.getElementById('toast');
+
+const STORAGE_KEY = 'affirm_idx_v1';
+
+function getStoredIndex(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) ? n : 0;
+}
+function setStoredIndex(n){ localStorage.setItem(STORAGE_KEY, String(n)); }
+
+function pickAndShow(list){
+  let idx = getStoredIndex();
+  idx = idx % list.length;
+  const item = list[idx];
+  AFFIRMATION_ELEMENT.textContent = item;
+  PROGRESS_BAR.style.width = `${((idx+1) / list.length) * 100}%`;
+  setStoredIndex(idx + 1);
+}
+
+function showNext(){
+  const list = FALLBACK_AFFIRMATIONS;
+  let idx = getStoredIndex();
+  const nextIdx = (idx + 1) % list.length;
+  setStoredIndex(nextIdx + 1);
+  AFFIRMATION_ELEMENT.textContent = list[nextIdx];
+}
+
+COPY_BTN.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(AFFIRMATION_ELEMENT.textContent);
+    showToast("Copied to clipboard!", true);
+  } catch(e) {
+    showToast("Copy failed.");
+  }
+});
+
+SHARE_BTN.addEventListener('click', async () => {
+  const txt = AFFIRMATION_ELEMENT.textContent;
+  if(navigator.share){
+    try { await navigator.share({ text: txt }); }
+    catch(e){}
+  } else {
+    try {
+      await navigator.clipboard.writeText(txt);
+      showToast("Affirmation copied! Paste to share.", true);
+    } catch(e) {
+      showToast("Sharing not supported.");
+    }
+  }
+});
+
+NEXT_BTN.addEventListener('click', showNext);
+
+function showToast(message, isSuccess=false){
+  TOAST.textContent = message;
+  TOAST.className = isSuccess ? 'toast success visible' : 'toast visible';
+  setTimeout(() => TOAST.classList.remove('visible'), 2500);
+}
+
+// kick it off
+pickAndShow(FALLBACK_AFFIRMATIONS);
+</script>
+</body>
+</html>
